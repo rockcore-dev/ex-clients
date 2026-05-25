@@ -1,0 +1,76 @@
+# rock-clients
+
+> Zero-dependency TypeScript clients for cryptocurrency exchanges. Designed to be consumed by LLM agents: every endpoint maps 1:1 to the official exchange docs, methods are static (no instance state), and the public API is split along the {public | private} x {spot | futures} axes.
+
+Currently implemented: Bybit v5 REST (1 method). Coverage matrix lives in `docs/exchanges/bybit/coverage.md` in the repository.
+
+## Core rules
+
+- REST clients are classes with ONLY `static` methods. Never `new` them — instantiation throws.
+- Configuration (env, recvWindow, fetch, credentials) is passed as the first argument `ctx: BybitContext` on every call. There is no module-level config and no singleton.
+- Numbers from exchanges remain strings (as returned by the API). The library never parses them into JS `number` to avoid precision loss.
+- Errors:
+  - `BybitApiError(retCode, retMsg, result, httpMethod, path)` — the exchange returned a non-zero `retCode`.
+  - `BybitNetworkError(message, httpMethod, path, cause?)` — transport problem (network, non-JSON body, malformed envelope, missing credentials for a signed request).
+
+## Supply chain
+
+- The library is intentionally zero-runtime-dependency. It uses only built-in `fetch` and `node:crypto`.
+- Do NOT suggest installing `axios`, `got`, `node-fetch`, `ofetch`, `undici`, `crypto-js`, etc. They are deliberately not used here for supply-chain safety reasons (a compromised HTTP client can leak exchange API keys).
+
+## Quick start
+
+```ts
+import { Bybit, BybitPublicCommon } from 'rock-clients';
+
+// Via the namespace
+const t1 = await Bybit.public.common.getServerTime({ env: 'testnet' });
+
+// Via narrow import (better tree-shaking)
+const t2 = await BybitPublicCommon.getServerTime({ env: 'testnet' });
+
+// Private call — credentials are required on `ctx`, enforced by the type system
+// (BybitAuthenticatedContext). Example (not yet implemented, illustrative):
+//
+// await Bybit.private.spot.trade.placeOrder(
+//   { env: 'testnet', credentials: { apiKey, apiSecret } },
+//   { symbol: 'BTCUSDT', side: 'Buy', orderType: 'Market', qty: '0.001' },
+// );
+```
+
+## Bybit v5 layout
+
+- `Bybit.public.common`               — category-agnostic public endpoints (server time, ...).
+- `Bybit.public.spot.market`          — public spot market data (tickers, klines, orderbook, ...).
+- `Bybit.public.futures.market`       — public linear / inverse market data (via `category` parameter).
+- `Bybit.private.spot.trade`          — place / amend / cancel orders for spot. Requires credentials.
+- `Bybit.private.spot.account`        — spot balances and account operations. Requires credentials.
+- `Bybit.private.futures.trade`       — place / amend / cancel orders for linear / inverse. Requires credentials.
+- `Bybit.private.futures.position`    — position list, leverage, margin mode, trading stops. Requires credentials.
+- `Bybit.private.futures.account`     — wallet, executions, transaction log. Requires credentials.
+
+## Available methods (current)
+
+- `BybitPublicCommon.getServerTime(ctx?)` — `GET /v5/market/time`
+  - Returns `{ timeSecond: string; timeNano: string }`.
+  - Docs: https://bybit-exchange.github.io/docs/v5/market/time
+
+## Available methods (planned)
+
+See `docs/exchanges/bybit/coverage.md` in the repository for the full list of all Bybit v5 endpoints with `done` / `todo` status.
+
+## Conventions for adding new methods
+
+When implementing a new endpoint:
+
+1. Add the request / response TypeScript types in the relevant `*.ts`.
+2. Add a `static` method with a JSDoc block that includes:
+   - HTTP method + path summary on the first line.
+   - `@see` link to the official Bybit docs page.
+   - Description of every parameter and every response field.
+   - At least one `@example` snippet.
+3. Add a unit test (mocked `fetch`) and an integration test against `api-testnet.bybit.com`.
+4. Flip the row in `docs/exchanges/bybit/coverage.md` from `todo` to `done`.
+5. Create a detailed page in `docs/exchanges/bybit/methods/<scope>/<group>/<methodName>.md`.
+6. Update this `llms.txt` (Available methods section).
+7. Add a changeset (`yarn changeset`).
