@@ -1,0 +1,22 @@
+export { OkxPublicSpotMarket } from './OkxPublicSpotMarket.js';
+export type {
+  GetSpotInstrumentsParams,
+  GetSpotInstrumentsResult,
+  SpotInstrument,
+  GetSpotTickersParams,
+  GetSpotTickersResult,
+  GetSpotTickerParams,
+  GetSpotTickerResult,
+  SpotTicker,
+  GetSpotOrderbookParams,
+  GetSpotOrderbookResult,
+  GetSpotKlineParams,
+  GetSpotKlineResult,
+  GetSpotHistoryKlineParams,
+  GetSpotHistoryKlineResult,
+  GetSpotRecentTradesParams,
+  GetSpotRecentTradesResult,
+  SpotPublicTrade,
+  GetSpotHistoryTradesParams,
+  GetSpotHistoryTradesResult,
+} from './types.js';
