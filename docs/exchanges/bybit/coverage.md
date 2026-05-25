@@ -7,31 +7,32 @@
 > - `done` — реализовано, покрыто unit + integration тестами, есть L4-страница.
 > - `partial` — реализовано, но часть параметров не поддержана или нет интеграционного теста.
 > - `todo` — не реализовано (ссылка ведёт на офиц. доку Bybit).
+> - `out of scope` — категория `option` или другие части API, явно вынесенные из текущей фазы.
 >
 > Source of truth: <https://bybit-exchange.github.io/docs/v5/intro>.
 > Last sync with official docs: 2026-05-25.
 
 ## Summary
 
-| Группа                              | done  | partial | todo    | total   |
-| ----------------------------------- | ----- | ------- | ------- | ------- |
-| Market (public)                     | 1     | 0       | 15      | 16      |
-| Trade (private)                     | 0     | 0       | 11      | 11      |
-| Position (private)                  | 0     | 0       | 14      | 14      |
-| Account (private)                   | 0     | 0       | 19      | 19      |
-| Asset (private)                     | 0     | 0       | 25      | 25      |
-| User (private)                      | 0     | 0       | 11      | 11      |
-| Spot Margin Trade UTA (private)     | 0     | 0       | 8       | 8       |
-| Spot Margin Trade Classic (private) | 0     | 0       | 6       | 6       |
-| Spot Leverage Token (private)       | 0     | 0       | 5       | 5       |
-| Institutional Loan (private)        | 0     | 0       | 5       | 5       |
-| Crypto Loan (private)               | 0     | 0       | 10      | 10      |
-| Earn (private)                      | 0     | 0       | 4       | 4       |
-| Broker (private)                    | 0     | 0       | 7       | 7       |
-| C2C Lending (private)               | 0     | 0       | 5       | 5       |
-| Pre-upgrade (private)               | 0     | 0       | 6       | 6       |
-| WebSocket Streams                   | 0     | 0       | —       | —       |
-| **Total REST**                      | **1** | **0**   | **151** | **152** |
+| Группа                              | done   | partial | todo    | oos   | total   |
+| ----------------------------------- | ------ | ------- | ------- | ----- | ------- |
+| Market (public)                     | 15     | 0       | 0       | 1     | 16      |
+| Trade (private)                     | 0      | 0       | 11      | 0     | 11      |
+| Position (private)                  | 0      | 0       | 14      | 0     | 14      |
+| Account (private)                   | 0      | 0       | 19      | 0     | 19      |
+| Asset (private)                     | 0      | 0       | 25      | 0     | 25      |
+| User (private)                      | 0      | 0       | 11      | 0     | 11      |
+| Spot Margin Trade UTA (private)     | 0      | 0       | 8       | 0     | 8       |
+| Spot Margin Trade Classic (private) | 0      | 0       | 6       | 0     | 6       |
+| Spot Leverage Token (private)       | 0      | 0       | 5       | 0     | 5       |
+| Institutional Loan (private)        | 0      | 0       | 5       | 0     | 5       |
+| Crypto Loan (private)               | 0      | 0       | 10      | 0     | 10      |
+| Earn (private)                      | 0      | 0       | 4       | 0     | 4       |
+| Broker (private)                    | 0      | 0       | 7       | 0     | 7       |
+| C2C Lending (private)               | 0      | 0       | 5       | 0     | 5       |
+| Pre-upgrade (private)               | 0      | 0       | 6       | 0     | 6       |
+| WebSocket Streams                   | 0      | 0       | —       | —     | —       |
+| **Total REST**                      | **15** | **0**   | **136** | **1** | **152** |
 
 ---
 
@@ -39,24 +40,26 @@
 
 Caller: `Bybit.public.common.*` (category-agnostic) or `Bybit.public.spot.market.*` / `Bybit.public.futures.market.*` (category-specific).
 
-| Status | Method | Endpoint                             | Class.method                      | Docs                                                                                                           |
-| ------ | ------ | ------------------------------------ | --------------------------------- | -------------------------------------------------------------------------------------------------------------- |
-| done   | GET    | /v5/market/time                      | `BybitPublicCommon.getServerTime` | [page](methods/public/common/getServerTime.md) · [bybit](https://bybit-exchange.github.io/docs/v5/market/time) |
-| todo   | GET    | /v5/market/kline                     | —                                 | [bybit](https://bybit-exchange.github.io/docs/v5/market/kline)                                                 |
-| todo   | GET    | /v5/market/mark-price-kline          | —                                 | [bybit](https://bybit-exchange.github.io/docs/v5/market/mark-kline)                                            |
-| todo   | GET    | /v5/market/index-price-kline         | —                                 | [bybit](https://bybit-exchange.github.io/docs/v5/market/index-kline)                                           |
-| todo   | GET    | /v5/market/premium-index-price-kline | —                                 | [bybit](https://bybit-exchange.github.io/docs/v5/market/preimum-index-kline)                                   |
-| todo   | GET    | /v5/market/instruments-info          | —                                 | [bybit](https://bybit-exchange.github.io/docs/v5/market/instrument)                                            |
-| todo   | GET    | /v5/market/orderbook                 | —                                 | [bybit](https://bybit-exchange.github.io/docs/v5/market/orderbook)                                             |
-| todo   | GET    | /v5/market/tickers                   | —                                 | [bybit](https://bybit-exchange.github.io/docs/v5/market/tickers)                                               |
-| todo   | GET    | /v5/market/funding/history           | —                                 | [bybit](https://bybit-exchange.github.io/docs/v5/market/history-fund-rate)                                     |
-| todo   | GET    | /v5/market/recent-trade              | —                                 | [bybit](https://bybit-exchange.github.io/docs/v5/market/recent-trade)                                          |
-| todo   | GET    | /v5/market/open-interest             | —                                 | [bybit](https://bybit-exchange.github.io/docs/v5/market/open-interest)                                         |
-| todo   | GET    | /v5/market/historical-volatility     | —                                 | [bybit](https://bybit-exchange.github.io/docs/v5/market/iv)                                                    |
-| todo   | GET    | /v5/market/insurance                 | —                                 | [bybit](https://bybit-exchange.github.io/docs/v5/market/insurance)                                             |
-| todo   | GET    | /v5/market/risk-limit                | —                                 | [bybit](https://bybit-exchange.github.io/docs/v5/market/risk-limit)                                            |
-| todo   | GET    | /v5/market/delivery-price            | —                                 | [bybit](https://bybit-exchange.github.io/docs/v5/market/delivery-price)                                        |
-| todo   | GET    | /v5/market/account-ratio             | —                                 | [bybit](https://bybit-exchange.github.io/docs/v5/market/long-short-ratio)                                      |
+Эндпоинты, общие для spot и futures (kline / orderbook / tickers / instruments-info / recent-trade), реализованы в обоих классах с фиксированной `category` — это даёт более точные типы. Эндпоинт `historical-volatility` помечен как **out of scope**, потому что доступен только для `category=option` (option в фазе 1 не покрывается).
+
+| Status       | Method | Endpoint                             | Class.method                                                                               | Docs                                                                                                                                                                              |
+| ------------ | ------ | ------------------------------------ | ------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| done         | GET    | /v5/market/time                      | `BybitPublicCommon.getServerTime`                                                          | [page](methods/public/common/getServerTime.md) · [bybit](https://bybit-exchange.github.io/docs/v5/market/time)                                                                    |
+| done         | GET    | /v5/market/kline                     | `BybitPublicSpotMarket.getKline` / `BybitPublicFuturesMarket.getKline`                     | [spot](methods/public/spot/getKline.md) · [futures](methods/public/futures/getKline.md) · [bybit](https://bybit-exchange.github.io/docs/v5/market/kline)                          |
+| done         | GET    | /v5/market/mark-price-kline          | `BybitPublicFuturesMarket.getMarkPriceKline`                                               | [page](methods/public/futures/getMarkPriceKline.md) · [bybit](https://bybit-exchange.github.io/docs/v5/market/mark-kline)                                                         |
+| done         | GET    | /v5/market/index-price-kline         | `BybitPublicFuturesMarket.getIndexPriceKline`                                              | [page](methods/public/futures/getIndexPriceKline.md) · [bybit](https://bybit-exchange.github.io/docs/v5/market/index-kline)                                                       |
+| done         | GET    | /v5/market/premium-index-price-kline | `BybitPublicFuturesMarket.getPremiumIndexPriceKline`                                       | [page](methods/public/futures/getPremiumIndexPriceKline.md) · [bybit](https://bybit-exchange.github.io/docs/v5/market/preimum-index-kline)                                        |
+| done         | GET    | /v5/market/instruments-info          | `BybitPublicSpotMarket.getInstrumentsInfo` / `BybitPublicFuturesMarket.getInstrumentsInfo` | [spot](methods/public/spot/getInstrumentsInfo.md) · [futures](methods/public/futures/getInstrumentsInfo.md) · [bybit](https://bybit-exchange.github.io/docs/v5/market/instrument) |
+| done         | GET    | /v5/market/orderbook                 | `BybitPublicSpotMarket.getOrderbook` / `BybitPublicFuturesMarket.getOrderbook`             | [spot](methods/public/spot/getOrderbook.md) · [futures](methods/public/futures/getOrderbook.md) · [bybit](https://bybit-exchange.github.io/docs/v5/market/orderbook)              |
+| done         | GET    | /v5/market/tickers                   | `BybitPublicSpotMarket.getTickers` / `BybitPublicFuturesMarket.getTickers`                 | [spot](methods/public/spot/getTickers.md) · [futures](methods/public/futures/getTickers.md) · [bybit](https://bybit-exchange.github.io/docs/v5/market/tickers)                    |
+| done         | GET    | /v5/market/funding/history           | `BybitPublicFuturesMarket.getFundingRateHistory`                                           | [page](methods/public/futures/getFundingRateHistory.md) · [bybit](https://bybit-exchange.github.io/docs/v5/market/history-fund-rate)                                              |
+| done         | GET    | /v5/market/recent-trade              | `BybitPublicSpotMarket.getRecentTrades` / `BybitPublicFuturesMarket.getRecentTrades`       | [spot](methods/public/spot/getRecentTrades.md) · [futures](methods/public/futures/getRecentTrades.md) · [bybit](https://bybit-exchange.github.io/docs/v5/market/recent-trade)     |
+| done         | GET    | /v5/market/open-interest             | `BybitPublicFuturesMarket.getOpenInterest`                                                 | [page](methods/public/futures/getOpenInterest.md) · [bybit](https://bybit-exchange.github.io/docs/v5/market/open-interest)                                                        |
+| out of scope | GET    | /v5/market/historical-volatility     | — (требует category=option)                                                                | [bybit](https://bybit-exchange.github.io/docs/v5/market/iv)                                                                                                                       |
+| done         | GET    | /v5/market/insurance                 | `BybitPublicCommon.getInsurance`                                                           | [page](methods/public/common/getInsurance.md) · [bybit](https://bybit-exchange.github.io/docs/v5/market/insurance)                                                                |
+| done         | GET    | /v5/market/risk-limit                | `BybitPublicFuturesMarket.getRiskLimit`                                                    | [page](methods/public/futures/getRiskLimit.md) · [bybit](https://bybit-exchange.github.io/docs/v5/market/risk-limit)                                                              |
+| done         | GET    | /v5/market/delivery-price            | `BybitPublicFuturesMarket.getDeliveryPrice`                                                | [page](methods/public/futures/getDeliveryPrice.md) · [bybit](https://bybit-exchange.github.io/docs/v5/market/delivery-price)                                                      |
+| done         | GET    | /v5/market/account-ratio             | `BybitPublicFuturesMarket.getLongShortRatio`                                               | [page](methods/public/futures/getLongShortRatio.md) · [bybit](https://bybit-exchange.github.io/docs/v5/market/long-short-ratio)                                                   |
 
 ## Trade (private)
 

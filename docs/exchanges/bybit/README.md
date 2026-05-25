@@ -112,10 +112,35 @@ try {
 ### Public · Common
 
 - [`BybitPublicCommon.getServerTime`](methods/public/common/getServerTime.md) — `GET /v5/market/time`
+- [`BybitPublicCommon.getInsurance`](methods/public/common/getInsurance.md) — `GET /v5/market/insurance`
+
+### Public · Spot Market
+
+- [`BybitPublicSpotMarket.getKline`](methods/public/spot/getKline.md) — `GET /v5/market/kline?category=spot`
+- [`BybitPublicSpotMarket.getInstrumentsInfo`](methods/public/spot/getInstrumentsInfo.md) — `GET /v5/market/instruments-info?category=spot`
+- [`BybitPublicSpotMarket.getOrderbook`](methods/public/spot/getOrderbook.md) — `GET /v5/market/orderbook?category=spot`
+- [`BybitPublicSpotMarket.getTickers`](methods/public/spot/getTickers.md) — `GET /v5/market/tickers?category=spot`
+- [`BybitPublicSpotMarket.getRecentTrades`](methods/public/spot/getRecentTrades.md) — `GET /v5/market/recent-trade?category=spot`
+
+### Public · Futures Market
+
+- [`BybitPublicFuturesMarket.getKline`](methods/public/futures/getKline.md) — `GET /v5/market/kline?category=linear|inverse`
+- [`BybitPublicFuturesMarket.getMarkPriceKline`](methods/public/futures/getMarkPriceKline.md) — `GET /v5/market/mark-price-kline`
+- [`BybitPublicFuturesMarket.getIndexPriceKline`](methods/public/futures/getIndexPriceKline.md) — `GET /v5/market/index-price-kline`
+- [`BybitPublicFuturesMarket.getPremiumIndexPriceKline`](methods/public/futures/getPremiumIndexPriceKline.md) — `GET /v5/market/premium-index-price-kline` (linear only)
+- [`BybitPublicFuturesMarket.getInstrumentsInfo`](methods/public/futures/getInstrumentsInfo.md) — `GET /v5/market/instruments-info?category=linear|inverse`
+- [`BybitPublicFuturesMarket.getOrderbook`](methods/public/futures/getOrderbook.md) — `GET /v5/market/orderbook?category=linear|inverse`
+- [`BybitPublicFuturesMarket.getTickers`](methods/public/futures/getTickers.md) — `GET /v5/market/tickers?category=linear|inverse`
+- [`BybitPublicFuturesMarket.getFundingRateHistory`](methods/public/futures/getFundingRateHistory.md) — `GET /v5/market/funding/history`
+- [`BybitPublicFuturesMarket.getRecentTrades`](methods/public/futures/getRecentTrades.md) — `GET /v5/market/recent-trade?category=linear|inverse`
+- [`BybitPublicFuturesMarket.getOpenInterest`](methods/public/futures/getOpenInterest.md) — `GET /v5/market/open-interest`
+- [`BybitPublicFuturesMarket.getRiskLimit`](methods/public/futures/getRiskLimit.md) — `GET /v5/market/risk-limit`
+- [`BybitPublicFuturesMarket.getDeliveryPrice`](methods/public/futures/getDeliveryPrice.md) — `GET /v5/market/delivery-price`
+- [`BybitPublicFuturesMarket.getLongShortRatio`](methods/public/futures/getLongShortRatio.md) — `GET /v5/market/account-ratio`
 
 ### Прочие группы
 
-Пусто. Прогресс — в [coverage.md](coverage.md).
+Прогресс — в [coverage.md](coverage.md).
 
 ## Сценарии (examples)
 
