@@ -6,7 +6,6 @@ import { BYBIT_TESTNET_ENV } from '../../setup.js';
 describe('Bybit testnet — public', () => {
   it('GET /v5/market/time returns a parseable server time', async () => {
     const result = await BybitPublicCommon.getServerTime({ env: BYBIT_TESTNET_ENV });
-    console.log(result);
 
     expect(typeof result.timeSecond).toBe('string');
     expect(typeof result.timeNano).toBe('string');

@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 
 import { BybitApiError, BybitHttp, BybitNetworkError } from '../../../../src/index.js';
-import { expectNotConstructable } from './_helpers.js';
+import { expectNotConstructable, urlOf } from './_helpers.js';
 
 function ok<T>(result: T): Response {
   return new Response(JSON.stringify({ retCode: 0, retMsg: 'OK', result, time: 1 }), {
@@ -30,8 +30,8 @@ describe('BybitHttp.request', () => {
 
   it('targets mainnet by default and testnet when env=testnet', async () => {
     const captured: string[] = [];
-    const fetchImpl = vi.fn((url: string) => {
-      captured.push(url);
+    const fetchImpl = vi.fn<typeof fetch>((input) => {
+      captured.push(urlOf(input));
       return Promise.resolve(ok({}));
     });
     await BybitHttp.request({ fetch: fetchImpl }, { method: 'GET', path: '/v5/market/time' });
@@ -45,8 +45,8 @@ describe('BybitHttp.request', () => {
 
   it('sorts query params and appends them to the URL', async () => {
     let capturedUrl = '';
-    const fetchImpl = vi.fn((url: string) => {
-      capturedUrl = url;
+    const fetchImpl = vi.fn<typeof fetch>((input) => {
+      capturedUrl = urlOf(input);
       return Promise.resolve(ok({}));
     });
     await BybitHttp.request(
@@ -121,8 +121,8 @@ describe('BybitHttp.request', () => {
 
   it('attaches X-BAPI-* headers for signed requests', async () => {
     let capturedHeaders: Headers | undefined;
-    const fetchImpl = vi.fn((_url: string, init: RequestInit) => {
-      capturedHeaders = new Headers(init.headers);
+    const fetchImpl = vi.fn<typeof fetch>((_input, init) => {
+      capturedHeaders = new Headers(init?.headers);
       return Promise.resolve(ok({}));
     });
 
